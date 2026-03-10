@@ -1,88 +1,80 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
-export default function SignupPage() {
+export default function SignupPage(){
 
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name,setName] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit=(e:React.FormEvent)=>{
     e.preventDefault();
-
-    console.log({
-      name,
-      email,
-      password
-    });
-
-    alert("Account created successfully");
-
     navigate("/login");
   };
 
-  return (
+  return(
 
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
 
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
+      <motion.div
+        initial={{opacity:0,y:40}}
+        animate={{opacity:1,y:0}}
+        transition={{duration:0.6}}
+        className="backdrop-blur-lg bg-white/20 border border-white/30 shadow-2xl rounded-2xl p-8 w-full max-w-md text-white"
+      >
 
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
-          Create Account 🚀
+        <h1 className="text-3xl font-bold text-center mb-4">
+          Create Account
         </h1>
-
-        <p className="text-center text-gray-500 mb-6">
-          Join EduReach and explore smarter education decisions
-        </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
 
           <input
             type="text"
             placeholder="Full Name"
-            className="w-full border rounded-lg px-3 py-2"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e)=>setName(e.target.value)}
+            className="w-full p-2 rounded-lg bg-white/30 placeholder-white outline-none"
           />
 
           <input
             type="email"
             placeholder="Email"
-            className="w-full border rounded-lg px-3 py-2"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e)=>setEmail(e.target.value)}
+            className="w-full p-2 rounded-lg bg-white/30 placeholder-white outline-none"
           />
 
           <input
             type="password"
             placeholder="Password"
-            className="w-full border rounded-lg px-3 py-2"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e)=>setPassword(e.target.value)}
+            className="w-full p-2 rounded-lg bg-white/30 placeholder-white outline-none"
           />
 
-          <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-            Create Account
+          <button className="w-full bg-white text-purple-600 font-semibold py-2 rounded-lg hover:scale-105 transition">
+            Sign Up
           </button>
 
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center mt-6 text-sm">
           Already have an account?{" "}
           <span
-            onClick={() => navigate("/login")}
-            className="text-blue-600 cursor-pointer hover:underline"
+            onClick={()=>navigate("/login")}
+            className="underline cursor-pointer"
           >
             Login
           </span>
         </p>
 
-      </div>
+      </motion.div>
 
     </div>
 
   );
-
 }
