@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 import Navbar from "../components/Navbar";
@@ -39,6 +40,49 @@ export default function HomePage() {
       <Navbar />
 
       <HeroSection />
+
+      <section
+        style={{
+          padding: "28px 20px",
+          background: "#fff8f3",
+          borderBottom: "1px solid #f1dfd2"
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "1100px",
+            margin: "0 auto",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "16px",
+            flexWrap: "wrap"
+          }}
+        >
+          <div>
+            <p style={{ margin: 0, color: "#7B1E2B", fontWeight: 700 }}>
+              Student home page
+            </p>
+            <p style={{ margin: "6px 0 0", color: "#6b5b52" }}>
+              Students stay on the public site after login. Admin access is now
+              handled through a separate login route.
+            </p>
+          </div>
+          <Link
+            to="/admin/login"
+            style={{
+              padding: "12px 18px",
+              background: "#7B1E2B",
+              color: "#fff",
+              borderRadius: "8px",
+              textDecoration: "none",
+              fontWeight: 600
+            }}
+          >
+            Admin Login
+          </Link>
+        </div>
+      </section>
 
       <AboutSection />
 

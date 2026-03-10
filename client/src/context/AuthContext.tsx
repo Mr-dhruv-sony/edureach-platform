@@ -6,12 +6,13 @@ interface User {
   name: string
   email: string
   phone?: string
+  role: "student" | "admin"
 }
 
 interface AuthContextType {
   user: User | null
   loading: boolean
-  login: (token: string) => void
+  login: (token: string) => Promise<void>
   logout: () => void
 }
 
@@ -26,9 +27,13 @@ export const AuthProvider = ({ children }: any) => {
 
     localStorage.setItem("token", token);
 
-    const userData = await getMe();
-
-    setUser(userData);
+    try {
+      const userData = await getMe();
+      setUser(userData);
+    } catch (error) {
+      localStorage.removeItem("token");
+      throw error;
+    }
   };
 
   const logout = () => {

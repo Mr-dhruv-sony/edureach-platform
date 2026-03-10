@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { register, login, getMe } from "../controllers/auth.controller.ts";
+import {
+  register,
+  login,
+  adminLogin,
+  getMe
+} from "../controllers/auth.controller.ts";
 import authMiddleware from "../middleware/auth.middleware.ts";
 
 const router = Router();
@@ -7,6 +12,8 @@ const router = Router();
 router.post("/register", register);
 
 router.post("/login", login);
+
+router.post("/admin/login", adminLogin);
 
 router.get("/me", authMiddleware, getMe);
 

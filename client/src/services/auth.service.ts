@@ -22,6 +22,16 @@ export const loginUser = async (data: {
   return res.data.data;
 };
 
+export const loginAdmin = async (data: {
+  email: string
+  password: string
+}) => {
+
+  const res = await API.post("/auth/admin/login", data);
+
+  return res.data.data;
+};
+
 export const getMe = async () => {
 
   const res = await API.get("/auth/me");

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 interface MentorsSectionProps {
   onReachMentors?: () => void;
@@ -34,21 +35,31 @@ export default function MentorsSection({ onReachMentors }: MentorsSectionProps) 
   }, [onReachMentors]);
 
   const mentors = [
+
     {
-      name: "Dr. Sarah Lee",
-      role: "AI Researcher",
-      avatar: "https://i.pravatar.cc/150?img=32"
+      name: "Rahul Sharma",
+      role: "AI Engineer - Google",
+      avatar: "https://randomuser.me/api/portraits/men/32.jpg"
     },
+
     {
-      name: "Michael Carter",
-      role: "Startup Mentor",
-      avatar: "https://i.pravatar.cc/150?img=12"
+      name: "Priya Patel",
+      role: "Data Scientist - Microsoft",
+      avatar: "https://randomuser.me/api/portraits/women/44.jpg"
     },
+
     {
-      name: "Prof. David Kim",
-      role: "Software Architect",
-      avatar: "https://i.pravatar.cc/150?img=45"
+      name: "Arjun Mehta",
+      role: "Product Manager - Amazon",
+      avatar: "https://randomuser.me/api/portraits/men/52.jpg"
+    },
+
+    {
+      name: "Neha Kapoor",
+      role: "AI Researcher - IIT Delhi",
+      avatar: "https://randomuser.me/api/portraits/women/65.jpg"
     }
+
   ];
 
   return (
@@ -56,96 +67,42 @@ export default function MentorsSection({ onReachMentors }: MentorsSectionProps) 
     <section
       ref={sectionRef}
       id="mentors"
-      style={{
-        padding: "80px 20px",
-        background: "#f8f6f4",
-        textAlign: "center"
-      }}
+      className="py-20 bg-[#f8f6f4] text-center px-6"
     >
 
-      {/* Title */}
-
-      <h2
-        style={{
-          fontSize: "36px",
-          fontWeight: "700",
-          marginBottom: "10px"
-        }}
-      >
+      <h2 className="text-4xl font-bold mb-3">
         Popular Mentors
       </h2>
 
-      <p style={{ color: "#666", marginBottom: "40px" }}>
-        Learn from industry leaders and experienced educators.
+      <p className="text-gray-600 mb-12">
+        Learn from experienced Indian mentors across AI, product, software and data.
       </p>
 
-      {/* Mentor Cards */}
+      <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-8 max-w-5xl mx-auto">
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-          gap: "30px",
-          maxWidth: "900px",
-          margin: "0 auto"
-        }}
-      >
+        {mentors.map((mentor,index)=>(
 
-        {mentors.map((mentor, index) => (
-
-          <div
+          <motion.div
             key={index}
-            style={{
-              background: "white",
-              padding: "30px",
-              borderRadius: "14px",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
-              transition: "transform 0.2s ease, box-shadow 0.2s ease",
-              cursor: "pointer"
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-6px)";
-              e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.15)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.08)";
-            }}
+            whileHover={{y:-8}}
+            className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition cursor-pointer"
           >
-
-            {/* Avatar */}
 
             <img
               src={mentor.avatar}
               alt={mentor.name}
-              style={{
-                width: "80px",
-                height: "80px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                marginBottom: "15px"
-              }}
+              className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
             />
 
-            {/* Name */}
-
-            <h3
-              style={{
-                fontSize: "20px",
-                fontWeight: "600",
-                marginBottom: "5px"
-              }}
-            >
+            <h3 className="text-lg font-semibold">
               {mentor.name}
             </h3>
 
-            {/* Role */}
-
-            <p style={{ color: "#7B1E2B", fontWeight: "500" }}>
+            <p className="text-sm text-red-800 font-medium">
               {mentor.role}
             </p>
 
-          </div>
+          </motion.div>
 
         ))}
 

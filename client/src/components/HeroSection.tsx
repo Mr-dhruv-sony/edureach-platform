@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { images, siteConfig } from "../data/content";
 
 export default function HeroSection() {
+  const navigate = useNavigate();
 
   return (
 
@@ -57,11 +59,24 @@ export default function HeroSection() {
           {siteConfig.tagline}
         </p>
 
+        <p
+          style={{
+            fontSize: "16px",
+            color: "#f9e7dd",
+            marginBottom: "30px",
+            lineHeight: 1.7
+          }}
+        >
+          Explore courses, compare outcomes, and connect with mentors who
+          understand the journey of students across India.
+        </p>
+
         {/* CTA Buttons */}
 
         <div style={{ display: "flex", justifyContent: "center", gap: "16px" }}>
 
           <button
+            onClick={() => document.getElementById("courses")?.scrollIntoView({ behavior: "smooth" })}
             style={{
               padding: "14px 26px",
               background: "#7B1E2B",
@@ -77,6 +92,7 @@ export default function HeroSection() {
           </button>
 
           <button
+            onClick={() => navigate("/signup")}
             style={{
               padding: "14px 26px",
               background: "transparent",
@@ -88,9 +104,19 @@ export default function HeroSection() {
               fontWeight: "500"
             }}
           >
-            📞 Request a Call
+            Create Student Account
           </button>
 
+        </div>
+
+        <div
+          style={{
+            marginTop: "18px",
+            fontSize: "14px",
+            color: "#f4d8c8"
+          }}
+        >
+          Admin users can sign in separately from the admissions panel.
         </div>
 
       </div>

@@ -115,6 +115,17 @@ export default function Navbar() {
               >
                 Signup
               </Link>
+
+              <Link
+                to="/admin/login"
+                style={{
+                  textDecoration: "none",
+                  color: "#7B1E2B",
+                  fontWeight: "600"
+                }}
+              >
+                Admin Login
+              </Link>
             </>
           )}
 
@@ -142,6 +153,19 @@ export default function Navbar() {
               >
                 Logout
               </button>
+
+              {user.role === "admin" && (
+                <Link
+                  to="/admin"
+                  style={{
+                    textDecoration: "none",
+                    color: "#7B1E2B",
+                    fontWeight: "600"
+                  }}
+                >
+                  Dashboard
+                </Link>
+              )}
             </>
           )}
 

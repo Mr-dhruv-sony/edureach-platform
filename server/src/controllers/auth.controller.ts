@@ -40,7 +40,8 @@ export const register = async (
 
     const token = generateToken({
       userId: user._id.toString(),
-      email: user.email
+      email: user.email,
+      role: user.role
     });
 
     res.status(201).json({
@@ -51,7 +52,8 @@ export const register = async (
           id: user._id,
           name: user.name,
           email: user.email,
-          phone: user.phone
+          phone: user.phone,
+          role: user.role
         }
       }
     });
@@ -100,7 +102,8 @@ export const login = async (
 
     const token = generateToken({
       userId: user._id.toString(),
-      email: user.email
+      email: user.email,
+      role: user.role
     });
 
     res.status(200).json({
@@ -111,7 +114,8 @@ export const login = async (
           id: user._id,
           name: user.name,
           email: user.email,
-          phone: user.phone
+          phone: user.phone,
+          role: user.role
         }
       }
     });
@@ -142,4 +146,64 @@ export const getMe = async (
     next(error);
   }
 
+};
+
+export const adminLogin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      res.status(400).json({
+        success: false,
+        message: "Email and password required"
+      });
+      return;
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user || user.role !== "admin") {
+      res.status(401).json({
+        success: false,
+        message: "Admin account required"
+      });
+      return;
+    }
+
+    const isMatch = await comparePassword(password, user.password);
+
+    if (!isMatch) {
+      res.status(401).json({
+        success: false,
+        message: "Invalid credentials"
+      });
+      return;
+    }
+
+    const token = generateToken({
+      userId: user._id.toString(),
+      email: user.email,
+      role: user.role
+    });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        token,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          role: user.role
+        }
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
 };
