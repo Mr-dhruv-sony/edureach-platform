@@ -1,89 +1,88 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { registerUser } from "../services/auth.service";
-import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
+
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
-  const { login } = useAuth();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
+    console.log({
+      name,
+      email,
+      password
+    });
 
-      const data = await registerUser({
-        name,
-        email,
-        password
-      });
+    alert("Account created successfully");
 
-      await login(data.token);
-
-      navigate("/");
-
-    } catch (error) {
-
-      alert("Signup failed");
-
-    }
-
+    navigate("/login");
   };
 
   return (
 
-    <div style={{ padding: "40px" }}>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
 
-      <h1>Signup</h1>
+      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
 
-      <form onSubmit={handleSubmit}>
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
+          Create Account 🚀
+        </h1>
 
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        <p className="text-center text-gray-500 mb-6">
+          Join EduReach and explore smarter education decisions
+        </p>
 
-        <br /><br />
+        <form onSubmit={handleSubmit} className="space-y-4">
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="w-full border rounded-lg px-3 py-2"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
 
-        <br /><br />
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full border rounded-lg px-3 py-2"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full border rounded-lg px-3 py-2"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <br /><br />
+          <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+            Create Account
+          </button>
 
-        <button type="submit">
-          Signup
-        </button>
+        </form>
 
-      </form>
+        <p className="text-center text-sm text-gray-500 mt-6">
+          Already have an account?{" "}
+          <span
+            onClick={() => navigate("/login")}
+            className="text-blue-600 cursor-pointer hover:underline"
+          >
+            Login
+          </span>
+        </p>
 
-      <br />
-
-      <Link to="/login">
-        Already have an account?
-      </Link>
+      </div>
 
     </div>
 
   );
+
 }
